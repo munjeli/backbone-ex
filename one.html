@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Backbone One</title>
+</head>
+<body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+<script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+<script>
+
+//meeting
+var Meeting = Backbone.Model.extend({
+	  initialize: function(){
+	      console.log('This meeting has been initialized.');
+	  },
+
+	  defaults:{
+	  	owner: '',
+	  	timecreated: Date.now(),
+	  	meetingtime: '',
+	  	attendees: [],
+	  	title: '',
+	  	description: ''
+	  }
+});
+
+//attendee
+var Attendee = Backbone.Model.extend({
+	  initialize: function(){
+	      console.log('This attendee has been initialized.');
+	  },
+
+	  defaults:{
+	  	username: '',
+	  	email: '',
+	  	key: '', 
+	  	role: ''
+	  }
+});
+
+//statements during the meeting
+var MeetingItem = Backbone.Model.extend({
+	  initialize: function(){
+	      console.log('This meetingItem has been initialized.');
+	  },
+
+	  defaults:{
+	  	itemID:0,
+	  	meetingID: 0,
+	  	username: '',
+	  	timestamp: '',
+	  	statement: '',
+	  	code: 0,
+	  	version: 0
+	  }
+});
+
+//live stats on the meeting
+var MeetingStats = Backbone.Model.extend({
+	  initialize: function(){
+	      console.log('The meetingstats have been initialized.');
+	  },
+
+	  defaults:{
+	  	attendance: 0,
+	  	quorum: 0,
+	  	voteready: 0, 
+	  }
+});
+
+//have a meeting; invite some cats
+var meeting = new Meeting({
+	owner: 'Ele',
+	meetingtime: 'October 13, 2013 11:00:00',
+	attendees: ['frisky', 'bobbin', 'chicken'],
+	title: 'Cat Liberation Front',
+	description: 'Better chow for all furry friends'
+});
+var attendee1 = new Attendee({
+	username: 'Frisky',
+	email: 'ele@elemunjeli.com',
+	key:'17'
+});
+var meetingItem1 = new MeetingItem();
+var stats = new MeetingStats();
+
+//things happen with the models
+console.log(JSON.stringify(meeting));
+console.log(attendee1.get('username'));
+meetingItem1.set({
+		itemID:1,
+	  	meetingID: 001,
+	  	username: 'Ele',
+	  	timestamp: Date.now(),
+	  	statement: 'Here\'s my statement',
+	  	code: 1,
+
+});
+console.log(JSON.stringify(meetingItem1));
+
+
+</script>
+</body>
+</html>
